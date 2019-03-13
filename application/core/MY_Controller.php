@@ -24,18 +24,14 @@ class MY_Controller extends CI_Controller {
           'pageLink' => $this->bu . $this->indexphp . '/page?name=',
             'panelAssets'=> $this->bu  . '/panel/assets/',
             'firstpart' => $this->bu . $this->indexphp . '/',
-            'login' => $this->bu . $this->indexphp . '/' . "user/login",
-            'logout' => $this->bu . $this->indexphp . '/' . "user/logout",
-            'signup' => $this->bu . $this->indexphp . '/' . "user/signup",
-            'forgetPass' => $this->bu . $this->indexphp . '/' . "user/forgetpass",
             'panel' => $this->bu . $this->indexphp . '/' . "panel/",
             'file' => $this->bu . '',
-            'no_image_available_pic' => $this->bu . '/file/image/' . "No_Image_Available.png",
-            'logout' => $this->bu . $this->indexphp . '/' . "user/logout",
-            'home' => $this->bu . $this->indexphp . '/' . "home",
-            'about' => $this->bu . $this->indexphp . '/' . "about"
+            'no_image_available_pic' => $this->bu . '/file/image/' . "No_Image_Available.png"
 
         );
+        $this->link['login']=$this->link['pageLink']."signup";
+        $this->link['signup']=$this->link['pageLink']."signup";
+        $this->link['forgotpassword']=$this->link['pageLink']."signup";
         $this->link['ajax']= array(
           'editItem'=>$this->link['admin']."ajaxEditItem",
           'ajaxAddItem'=>$this->link['admin']."ajaxAddItem",

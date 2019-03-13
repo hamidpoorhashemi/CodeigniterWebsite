@@ -47,12 +47,12 @@ $jsonInt=trim($jsonInt,'"');
 	}
 	// ***********
 public function getActionData($action="",$data=""){
-	if($validateInputData=$this->validateInputApi($action,$data)){
-	$res=$this->$action($data);
-	echo $this->generateJson(array("res"=>false, "msg" =>$res['msg']));
-}else{
-	echo $this->generateJson(array("res"=>false, "msg" =>$res['msg']));
-}
+			if($validateInputData=$this->validateInputApi($action,$data)){
+			$res=$this->$action($data);
+			echo $this->generateJson(array("res"=>false, "msg" =>$res['msg']));
+		}else{
+			echo $this->generateJson(array("res"=>false, "msg" =>$res['msg']));
+		}
 }
 // *********
 private function validateInputApi($action,$data){
@@ -65,7 +65,15 @@ private function validateInputApi($action,$data){
 				"user_password"=>""
 			)
 		),
-		"SignUp"=>""
+			"signup"=>array(
+				"input"=>array(
+					"user_name"=>"",
+					"user_phone"=>"",
+					"user_phone_prefix"=>"",
+					"user_password"=>"",
+					"user_password_confirm"=>""
+				)
+		)
 	);
 	if(isset($action) && is_string($action) && array_key_exists($action,$actioansArray) && is_array($data)){
 
@@ -85,14 +93,16 @@ private function validateInputApi($action,$data){
 		$res= $this->usermanage->login($data);
 		return $res;
 	}
+		// ********
+		public function signup($data){
+			$res= $this->usermanage->signup($data);
+			return $res;
+		}
 	// *********
 	public function logout(){
 
 	}
 	// **********
-	public function signup(){
-
-	}
 	// **********
 	public function forgetPassword(){
 

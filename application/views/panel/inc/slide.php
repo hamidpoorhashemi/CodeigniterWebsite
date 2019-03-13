@@ -1869,7 +1869,7 @@ telInput.on("keyup change", reset);
 
                       </div>
                       <div class="form-footer text-center mt-5">
-                          <p class="text-muted">Don't have an account? <a href="register.html">Sign up</a></p>
+                          <p class="text-muted">Don't have an account? <a href="<?=$link['signup']?>">Sign up</a></p>
                       </div>
                   </div>
               </form>
