@@ -31,7 +31,7 @@ $.ajax({
 }
 
 
-function apiAjax(urlAjax,action,data,successActionName){
+function apiAjax(urlAjax,action,data,successActionName,redirectlink=''){
   // var value = { "aaa": "111", "bbb": "222", "ccc": "333" };
   var value = data;
 var blkstr = [];
@@ -62,7 +62,12 @@ $.ajax({
     beforeSend: function() {},
     complete: function() { },
     success: function(data) {
-      window[successActionName](data);
+      console.log('ax:'+successActionName);
+      console.log('dx:'+data);
+      console.dir(data);
+
+      // actData={data:data,link:redirectlink};
+      window[successActionName](data,redirectlink);
      },
     error: function(data) {
       var out = '';

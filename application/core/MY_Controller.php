@@ -7,7 +7,7 @@ if (!defined('BASEPATH'))
  */
 class MY_Controller extends CI_Controller {
     protected $user;
-    protected $link;
+    public $link;
     protected $error;
     protected $bu;
     protected $indexphp;
@@ -29,9 +29,11 @@ class MY_Controller extends CI_Controller {
             'no_image_available_pic' => $this->bu . '/file/image/' . "No_Image_Available.png"
 
         );
+        $this->link['dashboard']=$this->link['pageLink']."dashboard";
         $this->link['login']=$this->link['pageLink']."signup";
         $this->link['signup']=$this->link['pageLink']."signup";
         $this->link['forgotpassword']=$this->link['pageLink']."signup";
+        $this->link['logout']=$this->link['pageLink']."logout";
         $this->link['ajax']= array(
           'editItem'=>$this->link['admin']."ajaxEditItem",
           'ajaxAddItem'=>$this->link['admin']."ajaxAddItem",

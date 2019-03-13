@@ -46,13 +46,14 @@ class Usermanage {
         if($loginValidation['res']){
           $phone=$data['user_phone_prefix'].$data['user_phone'];
           $pass=$data['user_password'];
-            $user=$this->CI->user_model->getUserByPhoneAndPass($phone,$pass);
+            $user=$this->CI->user_model->getUserByPhoneAndPass($data['user_phone'],$data['user_phone_prefix'],$pass);
             if(isset($user) && count($user)>0){
 
             		$the_session = array("phone" => $phone, "startAt" => time());
             		$this->CI->session->set_userdata($the_session);
                 $res['res']=true;
                 $res['msg']="Welcome";
+
             }else{
               $res['res']=false;
               $res['msg']="Please enter phone number or password correctly.";
@@ -69,30 +70,58 @@ class Usermanage {
 
       	public function signup($data=array())
       	{
+
           if($this->checkLogin()){
-            return true;
+            return array(
+              "res"=>false,
+              "msg"=>"You are Logined ."
+            );;
           }
       	$res=array(
           "res"=>false,
           "msg"=>""
         );
-      		$this->CI->load->model("user_model");
           $loginValidation=$this->validationSignupData($data);
-          if($loginValidation['res']){
+          if($loginValidation['res']==true){
             $phone=$data['user_phone_prefix'].$data['user_phone'];
             $pass=$data['user_password'];
-              $user=$this->CI->user_model->getUserByPhoneAndPass($phone,$pass);
+            $vcode=$data['user_vcode']=rand(10000,99999);
+            $this->CI->load->model("user_model");
+            $this->CI->load->library("sms");
+
+              $user=$this->CI->user_model->getUserByPhoneAndPrefix($data['user_phone'],$data['user_phone_prefix']);
               if(isset($user) && count($user)<=0){
 
-              		$the_session = array("phone" => $phone, "startAt" => time());
-              		$this->CI->session->set_userdata($the_session);
+                $newUserInfo=$this->CI->user_model->addUser($data);
+              	if(!$newUserInfo){
+
+                  $res['res']=false;
+                  $res['msg']="Try again or request to help from support.";
+              		}
+              	$vCode=$newUserInfo['user_vcode'];
+
+                $the_session = array("phone" => $phone, "startAt" => time());
+                $this->CI->session->set_userdata($the_session);
+                $res['res']="redirect";
+                $res['msg']="Welcome";
+                return $res;
+              	if($resSMS>=2008){
+
+              	}else{
                   $res['res']=true;
-                  $res['msg']="Welcome";
+                  $res['msg']="Check your phone messages and if you dont get message Login and Request activation code.";
+              	}
+
+
+
               }else{
                 $res['res']=false;
                 $res['msg']="Account with this phone number exist. if you forgot your password Use forgot password page to get your password.";
               }
 
+          }else{
+
+            return $loginValidation;
           }
 
             return $res;
@@ -101,17 +130,18 @@ class Usermanage {
   public function validationLoginData($data=array()){
     return array(
       "res"=>true,
-      "msg"=>""
+      "msg"=>"valid."
     );
   }
   // *********
 public function validationSignupData($data=array()){
-  if($res=$this->checkPasswordConfirmation($data)){
+  $res=$this->checkPasswordConfirmation($data);
+  if($res['res']==true){
 
 
 return array(
 "res"=>true,
-"msg"=>""
+"msg"=>"cc"
 );
 }else{
   return  $res;
@@ -119,15 +149,20 @@ return array(
 }
 // **************
 private function checkPasswordConfirmation($data=array()){
-
+  if(!array_key_exists("user_phone",$data) || strlen($data["user_phone"])<4 ){
+      return array(
+      "res"=>false,
+      "msg"=>"Enter Phone number correctly."
+      );
+    }
   if(array_key_exists("user_password",$data) && array_key_exists("user_password_confirm",$data) &&
- strlen($data["user_password"])>5 && strlen($data["user_password_confirm"]) >5  ){
-if($data["user_password"]==$data["user_password_confirm"]){
-    return array(
-    "res"=>true,
-    "msg"=>""
-    );
-  }else{
+ strlen($data["user_password"])>3 && strlen($data["user_password_confirm"]) >3 ){
+   if($data["user_password"]==$data["user_password_confirm"]){
+       return array(
+       "res"=>true,
+       "msg"=>""
+       );
+     }else{
     return array(
     "res"=>false,
     "msg"=>"Confirmation password must be the same of your password."
@@ -136,9 +171,15 @@ if($data["user_password"]==$data["user_password_confirm"]){
   }else{
     return array(
     "res"=>false,
-    "msg"=>"Enter Password and confirmation with more than 5 character."
+    "msg"=>"Enter Password and confirmation with more than 3 character."
     );
   }
+  return array(
+  "res"=>false,
+  "msg"=>"Input is wrong."
+  );
 }
+// ***************
+
 
 }

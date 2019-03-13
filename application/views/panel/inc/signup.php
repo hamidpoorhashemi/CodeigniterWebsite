@@ -1871,9 +1871,8 @@
                       "user_name":$("#name").val(),
                       "user_password":$("#password").val(),
                       "user_password_confirm":$("#password_confirm").val()
-                      // "user_password":$("#exampleInputPassword1").val()
                     };
-                    apiAjax('<?=$link['ajax']['api']?>','signup',dataArray,'loginAction')
+                    apiAjax('<?=$link['ajax']['api']?>','signup',dataArray,'signupaction','<?=$link['dashboard']?>');
                   }
                 </script>
 

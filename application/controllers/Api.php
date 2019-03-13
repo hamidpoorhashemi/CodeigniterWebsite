@@ -49,9 +49,9 @@ $jsonInt=trim($jsonInt,'"');
 public function getActionData($action="",$data=""){
 			if($validateInputData=$this->validateInputApi($action,$data)){
 			$res=$this->$action($data);
-			echo $this->generateJson(array("res"=>false, "msg" =>$res['msg']));
+			echo $this->generateJson(array("res"=>$res['res'], "msg" =>$res['msg']));
 		}else{
-			echo $this->generateJson(array("res"=>false, "msg" =>$res['msg']));
+			echo $this->generateJson(array("res"=>$res['res'], "msg" =>$res['msg']));
 		}
 }
 // *********
@@ -85,7 +85,7 @@ private function validateInputApi($action,$data){
 	}
 	return $actioansArray[$action];
 }else {
-		return false;
+		return array("res"=>false, "msg" =>$key . " Not found In your request.");
 	}
 }
 	// ********
