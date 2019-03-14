@@ -17,6 +17,7 @@ private $CI;
           "item_id"=>0,
           "item_name"=>"",
           "item_description"=>"",
+          "item_need_login"=>0,
           "inc"=>array()
 
         );
@@ -36,6 +37,8 @@ private $CI;
             $dataPage['item_id']=$valuePage->item_id;
             $dataPage['item_name']=$valuePage->item_name;
             $dataPage['item_description']=$valuePage->item_description;
+            $dataPage['item_need_login']=$valuePage->item_need_login;
+
           }
 
       $dataPage['inc']=$this->getIncs($dataPage['item_id']);

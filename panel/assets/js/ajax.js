@@ -31,7 +31,7 @@ $.ajax({
 }
 
 
-function apiAjax(urlAjax,action,data,successActionName,redirectlink=''){
+function apiAjax(urlAjax,action,data={},successActionName='',redirectlink=''){
   // var value = { "aaa": "111", "bbb": "222", "ccc": "333" };
   var value = data;
 var blkstr = [];
@@ -67,7 +67,9 @@ $.ajax({
       console.dir(data);
 
       // actData={data:data,link:redirectlink};
+      if(successActionName.length>0){
       window[successActionName](data,redirectlink);
+    }
      },
     error: function(data) {
       var out = '';

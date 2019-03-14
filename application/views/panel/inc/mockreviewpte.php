@@ -7,7 +7,7 @@
                                     <div class="media-body">
                                         <h4 class="mb-3"><?=$thisIncdata['name']?></h4> <?=$thisIncdata['desc']?></h4>
                                     </div>
-                                    <img class="img-fluid mr-4" src="https://ruhegr.com/wp-content/uploads/2018/05/PTEsmall.jpg" alt="image">
+                                    <!-- <img class="img-fluid mr-4" src="https://ruhegr.com/wp-content/uploads/2018/05/PTEsmall.jpg" alt="image"> -->
 
                                 </div>
 

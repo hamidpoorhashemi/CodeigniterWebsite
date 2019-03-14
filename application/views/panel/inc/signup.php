@@ -6,7 +6,7 @@
                     <div class="login-form-head">
                         <h4><?=$thisIncdata['name']?></h4>
                         <p><?=$thisIncdata['desc']?></p>
-                        <p id="msgLoginAction">Hello there, you can sign in really simple.!</p>
+                        <p id="msgLoginAction"></p>
 
                     </div>
                     <div class="login-form-body">

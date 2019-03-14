@@ -42,16 +42,20 @@ $jsonInt=trim($jsonInt,'"');
 				}
 		$actionData=$this->getActionData($jsonIn['action'],$finalArray);
 	}else{
+			if(isset($jsonIn['action'])){
+				$actionData=$this->getActionData($jsonIn['action'],array());
+			}else{
 		echo $this->generateJson(array("res"=>false, "msg" =>"Data is Incorrect"));
 	}
 	}
+	}
 	// ***********
-public function getActionData($action="",$data=""){
+public function getActionData($action="",$data=array()){
 			if($validateInputData=$this->validateInputApi($action,$data)){
 			$res=$this->$action($data);
 			echo $this->generateJson(array("res"=>$res['res'], "msg" =>$res['msg']));
 		}else{
-			echo $this->generateJson(array("res"=>$res['res'], "msg" =>$res['msg']));
+			echo $this->generateJson(array("res"=>false, "msg" =>"Actioan not found."));
 		}
 }
 // *********
@@ -73,7 +77,17 @@ private function validateInputApi($action,$data){
 					"user_password"=>"",
 					"user_password_confirm"=>""
 				)
-		)
+		),
+			"sendvcode"=>array(
+				"input"=>array(
+				)
+			),
+				"active"=>array(
+					"input"=>array(
+						"activationcode"=>""
+					)
+				)
+
 	);
 	if(isset($action) && is_string($action) && array_key_exists($action,$actioansArray) && is_array($data)){
 
@@ -98,6 +112,16 @@ private function validateInputApi($action,$data){
 			$res= $this->usermanage->signup($data);
 			return $res;
 		}
+			// ********
+			public function sendvcode($data=array()){
+				$res= $this->usermanage->sendVcode();
+				return $res;
+			}
+			// ********
+			public function active($data){
+				$res= $this->usermanage->active($data);
+				return $res;
+			}
 	// *********
 	public function logout(){
 

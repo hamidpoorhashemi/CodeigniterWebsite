@@ -38,7 +38,11 @@ class Usermanage {
             $this->CI->load->model("user_model");
 
             $user=$this->CI->user_model->getUserByPhoneAndPrefix($phone,$phonePrefix);
-return $user;
+            if(isset($user) and count($user)>0){
+              return $user;
+            }else{
+                return array();
+              }
   }
         // ******************
 
@@ -99,7 +103,6 @@ return $user;
             $pass=$data['user_password'];
             $vcode=$data['user_vcode']=rand(10000,99999);
             $this->CI->load->model("user_model");
-            $this->CI->load->library("sms");
 
               $user=$this->CI->user_model->getUserByPhoneAndPrefix($data['user_phone'],$data['user_phone_prefix']);
               if(isset($user) && count($user)<=0){
@@ -192,6 +195,74 @@ private function checkPasswordConfirmation($data=array()){
   );
 }
 // ***************
+public function sendVcode(){
 
+  // $this->CI->load->model("user_model");
+$user=$this->getUserBySession();
+$phone="0";
+$vCode="0";
+if(isset($user) && count($user)>0){
+foreach($user as $uKey => $uValue){
+$phone=$uValue->user_phone_prefix.$uValue->user_phone;
+$vCode=$uValue->user_vcode;
+}
+
+  if(strlen($phone)>3 && strlen($vCode)>3 ){
+    $this->CI->load->library("sms");
+
+	$text1=" Your Activation Code: ";
+	$text2="";
+	$res=$this->CI->sms->send($phone,$vCode,$text1,$text2);
+
+  return array("res"=>true,'msg'=>"Activation code sent.");
+  }
+  return array("res"=>false,'msg'=>"Try again.");
+
+}else{
+  return array("res"=>false,'msg'=>"User Not found.");
+
+}
+}
+// ******************
+public function active($data){
+
+  $user=$this->getUserBySession();
+  $phone="0";
+  $vCode="0";
+  $user_id=0;
+  if(isset($user) && count($user)>0){
+  foreach($user as $uKey => $uValue){
+  $phone=$uValue->user_phone_prefix.$uValue->user_phone;
+  $vCode=$uValue->user_vcode;
+  $user_id=$uValue->user_id;
+  }
+
+    if(strlen($phone)>3 && strlen($vCode)>3 && $user_id>0){
+
+        if($vCode==$data['activationcode']){
+          $item=array(
+            "user_activation"=>1
+          );
+
+          $changedRes=$this->CI->user_model->update('user',$item,array("user_id"=>$user_id));
+          if($changedRes>0){
+            return array("res"=>"redirect",'msg'=>"Account activated.");
+          }else{
+            return array("res"=>false,'msg'=>"Activation faild.");
+
+          }
+
+        }
+
+    return array("res"=>false,'msg'=>"Try more or get support.");
+    }
+    return array("res"=>false,'msg'=>"Try again.");
+
+  }else{
+    return array("res"=>false,'msg'=>"User Not found.");
+
+  }
+
+}
 
 }

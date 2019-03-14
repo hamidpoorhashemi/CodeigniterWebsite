@@ -115,15 +115,27 @@ class MY_Controller extends CI_Controller {
                       if(isset($pageItem) && count($pageItem)>0){
                         $data['pageOption']['title']=$pageItem['item_name'];
                         $data['pageOption']['description']=$pageItem['item_description'];
+                        $data['pageOption']['item_need_login']=$pageItem['item_need_login'];
+
+                      }else{
+                        echo "Page not Found!";
+                        return;
                       }
                       $data['thisIncdata']=array();
                         $this->load->view('panel/header', $data);
                         $this->menu->getmenu($data);
                         if(isset($pageItem) && count($pageItem) > 0){
-                        foreach ($pageItem['inc'] as $keyInc => $valueInc) {
-                          $data['thisIncdata']=$valueInc;
-                          $this->load->view($valueInc['value'], $data);
-                        }
+                          if($pageItem['item_need_login']==0 || ($pageItem['item_need_login']==1 && $this->user['logined']==1 && $this->user['activation']==1)){
+
+                                foreach ($pageItem['inc'] as $keyInc => $valueInc) {
+                                  $data['thisIncdata']=$valueInc;
+                                  $this->load->view($valueInc['value'], $data);
+                                }
+                          }elseif($pageItem['item_need_login']==1 && $this->user['logined']==0){
+                            $this->load->view('panel/inc/login', $data);
+                          }elseif($pageItem['item_need_login']==1 && $this->user['logined']==1  && $this->user['activation']==0 ){
+                            $this->load->view('panel/inc/activation', $data);
+                          }
                       }
                         $this->load->view('panel/footer', $data);
 

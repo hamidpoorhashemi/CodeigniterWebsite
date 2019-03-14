@@ -35,6 +35,13 @@ background-size: cover;
 
 
               <form class="col-4 loginbox">
+                  <?php if($user['logined']==1){ ?>
+                    <div class="login-form-head">
+
+                        <button type="button" class="btn btn-success bg" name="button"><a style="color:white;text-decoration:none" href="<?=$link['dashboard']?>"> Dashboard </a></button>
+                    </div>
+                  </form>
+                  <?php }else{ ?>
                   <div class="login-form-head">
                       <h4>Sign In</h4>
                       <p id="msgLoginAction">Hello there, you can sign in really simple.!</p>
@@ -1873,6 +1880,7 @@ telInput.on("keyup change", reset);
                       </div>
                   </div>
               </form>
+              <?php } ?>
                          <div style="" class="col-6 titletext">
                           <style media="screen">
                             .aboutus{
