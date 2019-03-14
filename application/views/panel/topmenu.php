@@ -12,7 +12,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-3">
                         <div class="logo">
-                            <a href="<?=$link['base']?>"><img src="https://media.licdn.com/dms/image/C4D0BAQHY6V0PQ14iPA/company-logo_200_200/0?e=2159024400&v=beta&t=-u_xnDmhftrMQRrRssU7lL4w52kvp7A60bDsC7bLJis" style="height:46px" alt="logo"></a>
+                            <a href="<?=$link['base']?>"><img src="<?=$link['panelAssets']?>images/logo.png"  alt="logo"></a>
                         </div>
                     </div>
                     <!-- profile info & task notification -->

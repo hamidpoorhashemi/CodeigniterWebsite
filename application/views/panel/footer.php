@@ -209,7 +209,7 @@
                             <div class="col-xl-4 col-lg-4 mb-50">
                                 <div class="footer-widget">
                                     <div class="footer-logo">
-                                        <a href="index.html"><img src="https://media.licdn.com/dms/image/C4D0BAQHY6V0PQ14iPA/company-logo_200_200/0?e=2159024400&v=beta&t=-u_xnDmhftrMQRrRssU7lL4w52kvp7A60bDsC7bLJis" class="img-fluid" alt="logo"></a>
+                                        <a href="<?=$link['base']?>"><img style="filter: sepia(100%); " src="<?=$link['panelAssets']?>images/logo.png" class="img-fluid" alt="logo"></a>
                                     </div>
                                     <div class="footer-text">
                                         <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec tetur adipisicing

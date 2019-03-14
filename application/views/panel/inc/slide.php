@@ -1892,7 +1892,9 @@ telInput.on("keyup change", reset);
                             }
                           </style>
                           <div class="aboutus">
-                            <h1>Mehr Language Academy</h1>
+                            <a href="<?=$link['base']?>"><img style="filter: sepia(100%); " src="<?=$link['panelAssets']?>images/logo.png" class="img-fluid" alt="logo"></a>
+
+                            <!-- <h1>Mehr Language Academy</h1> -->
 
                             <p>Mehr Academy offers online preparation courses for the IELTS and PTE exams in addition to General English packages for English learners. We are experts in language teaching and testing.
                                Our teachers have taken the tests themselves, so we know exactly what you need to do to succeed.</p>
