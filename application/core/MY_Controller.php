@@ -45,14 +45,40 @@ class MY_Controller extends CI_Controller {
           $this->user=array(
             "id"=>'',
             "email"=>'',
+            "name"=>'',
+            "logined"=>0,
+            "activation"=>0,
+            "phone_prefix"=>'',
             "phone"=>'',
-            "en_name"=>'',
-            "en_lastname"=>'',
-            "fa_name"=>'',
-            "fa_lastname"=>'',
-            "account_id"=>'',
             "avatar"=>'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Irancell_Logo.gif/250px-Irancell_Logo.gif'
                   );
+
+                  $this->load->library("usermanage");
+
+            if($this->usermanage->checkLogin()){
+              $uaserRow=$this->usermanage->getUserBySession();
+              if(isset($uaserRow) && count($uaserRow) > 0){
+                foreach ($uaserRow as $key => $value) {
+
+                  $this->user=array(
+                    "user_id"=>$value->user_id,
+                    "email"=>'',
+                    "name"=>$value->user_name,
+                    "logined"=>1,
+                    "activation"=>$value->user_activation,
+                    "phone_prefix"=>$value->user_phone_prefix,
+                    "phone"=>$value->user_phone,
+                    "avatar"=>'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Irancell_Logo.gif/250px-Irancell_Logo.gif'
+                          );
+
+
+                }
+              }
+
+
+            }
+
+
           }
 
           public function render($view_name="home",$data=array(),$them="") {

@@ -15,7 +15,8 @@ class Usermanage {
     public function checkLogin(){
       $this->CI->load->library('session');
       if ($this->CI->session->userdata('phone') !== FALSE && $this->CI->session->userdata('startAt') !== FALSE) {
-                $phone  = $this->CI->session->userdata('phone');
+        $phonePrefix  = $this->CI->session->userdata('user_phone_prefix');
+        $phone  = $this->CI->session->userdata('user_phone');
                 $startAt  = $this->CI->session->userdata('startAt');
                 if($startAt<time()-86400){
                   return false;
@@ -28,7 +29,17 @@ class Usermanage {
 
     }
 
+// ***************
 
+  public function getUserBySession(){
+    $phonePrefix  = $this->CI->session->userdata('user_phone_prefix');
+    $phone  = $this->CI->session->userdata('user_phone');
+            $startAt  = $this->CI->session->userdata('startAt');
+            $this->CI->load->model("user_model");
+
+            $user=$this->CI->user_model->getUserByPhoneAndPrefix($phone,$phonePrefix);
+return $user;
+  }
         // ******************
 
 
@@ -49,10 +60,11 @@ class Usermanage {
             $user=$this->CI->user_model->getUserByPhoneAndPass($data['user_phone'],$data['user_phone_prefix'],$pass);
             if(isset($user) && count($user)>0){
 
-            		$the_session = array("phone" => $phone, "startAt" => time());
+            		$the_session = array("user_phone" => $data['user_phone'], "user_phone_prefix"=>$data['user_phone_prefix'],"startAt" => time());
             		$this->CI->session->set_userdata($the_session);
-                $res['res']=true;
+                $res['res']="redirect";
                 $res['msg']="Welcome";
+                return $res;
 
             }else{
               $res['res']=false;
@@ -99,8 +111,8 @@ class Usermanage {
                   $res['msg']="Try again or request to help from support.";
               		}
               	$vCode=$newUserInfo['user_vcode'];
+                $the_session = array("user_phone" => $data['user_phone'], "user_phone_prefix"=>$data['user_phone_prefix'],"startAt" => time());
 
-                $the_session = array("phone" => $phone, "startAt" => time());
                 $this->CI->session->set_userdata($the_session);
                 $res['res']="redirect";
                 $res['msg']="Welcome";

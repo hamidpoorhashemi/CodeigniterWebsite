@@ -164,15 +164,29 @@
                             </ul>
                         </div>
                         <div class="clearfix d-md-inline-block d-block">
+                          <?php if($user['logined']==1){ ?>
                             <div class="user-profile m-0">
                                 <img class="avatar user-thumb" src="<?=$link['panelAssets']?>images/author/avatar.png" alt="avatar">
-                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Welcome<i class="fa fa-angle-down"></i></h4>
+                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown"><?=$user['name']?><i class="fa fa-angle-down"></i></h4>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#">Message</a>
                                     <a class="dropdown-item" href="#">Settings</a>
                                     <a class="dropdown-item" href="<?=$link['logout']?>">Log Out</a>
                                 </div>
                             </div>
+                          <?php }else{ ?>
+
+                            <div class="user-profile m-0">
+                                <img class="avatar user-thumb" src="<?=$link['panelAssets']?>images/author/avatar.png" alt="avatar">
+                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Welcome<i class="fa fa-angle-down"></i></h4>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Message</a>
+                                    <a class="dropdown-item" href="#">Settings</a>
+                                    <a class="dropdown-item" href="<?=$link['login']?>">Login</a>
+                                </div>
+                            </div>
+
+                          <?php } ?>
                         </div>
                     </div>
                 </div>

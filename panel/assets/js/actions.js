@@ -11,7 +11,10 @@ var html="";
                 '</button>'+
           '</div>';
           $("#msgLoginAction").html(html);
-   }
+        }else if(dataAjaxL['res']=="redirect"){
+          window.location.href = link;
+
+        }
 
  }
 

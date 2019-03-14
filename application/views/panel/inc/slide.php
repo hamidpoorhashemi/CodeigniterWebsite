@@ -1862,7 +1862,7 @@ telInput.on("keyup change", reset);
                                   "user_phone":$("#phone").val(),
                                   "user_password":$("#exampleInputPassword1").val()
                                 };
-                                apiAjax('<?=$link['ajax']['api']?>','login',dataArray,'loginAction')
+                                apiAjax('<?=$link['ajax']['api']?>','login',dataArray,'loginAction','<?=$link['dashboard']?>')
                               }
                             </script>
 
