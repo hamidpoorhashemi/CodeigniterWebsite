@@ -15,7 +15,7 @@ class MY_Controller extends CI_Controller {
     public function __construct(){
         parent::__construct();
         $this->indexphp = "index.php";
-        // $this->bu = 'http://mehr.academy/``';
+        // $this->bu = 'http://mehr.academy/';
         $this->bu = 'http://localhost:8181/mehrre/';
         $js_url = $this->bu . 'client/assets/js/';
         $this->link = array(

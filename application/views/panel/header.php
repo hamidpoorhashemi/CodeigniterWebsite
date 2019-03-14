@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="<?=$link['panelAssets']?>css/default-css.css">
     <link rel="stylesheet" href="<?=$link['panelAssets']?>css/styles.css">
     <link rel="stylesheet" href="<?=$link['panelAssets']?>css/responsive.css">
+    <link rel="stylesheet" href="<?=$link['panelAssets']?>css/emoji.css">
     <!-- modernizr css -->
     <script src="<?=$link['panelAssets']?>js/vendor/modernizr-2.8.3.min.js"></script>
     <script src="<?=$link['panelAssets']?>js/ajax.js"></script>
